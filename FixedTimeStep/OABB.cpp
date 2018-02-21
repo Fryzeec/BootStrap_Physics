@@ -1,20 +1,22 @@
 #include "OABB.h"
 
 
-OABB::OABB(glm::vec2 position, glm::vec2 velocity, float mass, glm::vec4 colour, glm::vec2 extents) 
+oabb::oabb(glm::vec2 position, glm::vec2 velocity, float mass, glm::vec4 colour, glm::vec2 extents, float width, float height) 
 	: RigidBody(ShapeType::OABB, position, velocity, 0, mass)
 {
-	m_colour = colour;
+	m_colour  = colour;
 	m_extents = extents;
-	m_localX = glm::vec2(1,0);
-	m_localY = glm::vec2(0,1);
+	m_localX  = glm::vec2(1,0);
+	m_localY  = glm::vec2(0,1);
+	m_width   = width;
+	m_height  = height;
 }
 
-OABB::~OABB()
+oabb::~oabb()
 {
 }
 
-void OABB::fixedUpdate(glm::vec2 gravity, float timeStep)
+void oabb::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
 	RigidBody::fixedUpdate(gravity, timeStep);
 
@@ -25,7 +27,7 @@ void OABB::fixedUpdate(glm::vec2 gravity, float timeStep)
 	m_localY = glm::normalize(glm::vec2(-sn, cs));
 }
 
-void OABB::makeGizmo()
+void oabb::makeGizmo()
 {
 	//if only using rotation
 	//glm::mat4 transform = glm::rotate(m_rotation, glm::vec3(0,0,1));
@@ -40,7 +42,7 @@ void OABB::makeGizmo()
 	aie::Gizmos::add2DTri(p1, p4, p3, m_colour);
 }
 
-bool OABB::checkCollision(PhysicsObject * pOther)
+bool oabb::checkCollision(PhysicsObject * pOther)
 {
 	return false;
 }
